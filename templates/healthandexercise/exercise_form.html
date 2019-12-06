@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block  content %}
+    <form method="post" action=".">
+        {% csrf_token %}
+        <label>
+            오늘은 무슨 운동을 하셨나요?
+            <input type="text" placeholder="운동 이모지를 넣어주세요!" name="name">
+        </label>
+        <input type="submit">
+    </form>
+{% endblock %}
