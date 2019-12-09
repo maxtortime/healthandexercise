@@ -1,33 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>
-        운동 기록을 위해서는 로그인해야 합니다.
-
-    </p>
-
-    {% if form.errors %}
-        <p>사용자 이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</p>
-    {% endif %}
-
-    {% if next %}
-        <p>운동을 기록하려면 로그인해야 합니다!</p>
-    {% endif %}
+    <p class="lead">운동 기록을 위해서는 로그인해야 합니다.</p>
 
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
-            </tr>
-        </table>
+        <div class="form-group">
+            <label for="username">{{ form.username.label }}</label>
+            <input class="form-control {% if form.errors %}is-invalid{% endif %}" id="username"
+                   aria-describedby="usernameHelp" name="username">
+            <div class="invalid-feedback">
+                사용자 이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password1">{{ form.password.label }}</label>
+            <input type="password" class="form-control {% if form.errors %}is-invalid{% endif %}" id="password1"
+                   name="password">
+            <div class="invalid-feedback">
+                사용자 이름과 비밀번호가 일치하지 않습니다. 다시 시도해주세요.
+            </div>
+        </div>
 
-        <input type="submit" value="로그인">
+        <button type="submit" class="btn btn-primary">로그인</button>
         <input type="hidden" name="next" value="{{ next }}">
     </form>
 {% endblock %}

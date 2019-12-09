@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>오늘도 30분 이상의 운동을 하셨나요?
+    <p class="lead">오늘도 30분 이상의 운동을 하셨나요?
         <br>
         🏃 🏋️ 🏊 🧘 🚴 🤸 🚶 🥊 🥋 🤺 🧗 ⛷️ ⛹️ 🏄 🚣 ⚽
     </p>
     <form method="post" action=".">
         {% csrf_token %}
-        <label>
-            오늘은 무슨 운동을 하셨나요?
-            <input type="text" placeholder="운동 이모지를 넣어주세요!" name="name">
-            {{ form.errors.name }}
-        </label>
-        <br>
-        <label>
-            언제 운동 하셨나요?
-            <input id="exerciseAt" type="date" name="exercise_at">
-            {{ form.errors.exercise_at }}
-        </label>
-        <input type="submit">
+        <div class="form-group">
+            <label for="exercise-name">오늘은 무슨 운동을 하셨나요?</label>
+            <input type="text" class="form-control {% if form.errors.name %}is-invalid{% endif %}" id="exercise-name" placeholder="운동 이모지를 넣어주세요!" name="name">
+            <div class="invalid-feedback">
+                {{ form.errors.name }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exercise-at">언제 운동하셨나요?</label>
+            <input type="date" class="form-control {% if form.errors.exercise_at %}is-invalid{% endif %}" id="exercise-at" name="exercise_at">
+            <div class="invalid-feedback">
+                {{ form.errors.exercise_at }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">오늘도 운동 했다!</button>
     </form>
     <script>
-        document.getElementById('exerciseAt').valueAsDate = new Date();
+        document.getElementById('exercise-at').valueAsDate = new Date();
     </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>
+    <p class="lead">
         {% if user.is_authenticated %}
             어서 오세요! {{ user }}님!
             오늘도 30분 이상의 운동을 하셨나요? <a href="{% url 'create-exercise' %}">기록해주세요!</a>
@@ -15,6 +15,9 @@
             <a href="{% url 'logout' %}">로그아웃하기</a>
         {% endif %}
     </p>
+    {% if not object_list %}
+        <p>아무도 운동을 기록하지 않았어요 ㅠㅠ</p>
+    {% endif %}
     <ul>
         {% for exercise in object_list %}
             <li>{{ exercise.exerciser }} ({{ exercise.exercise_at }}) {{ exercise.name }}</li>

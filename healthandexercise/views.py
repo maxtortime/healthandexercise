@@ -39,5 +39,5 @@ class RegisterView(CreateView):
 class BoardView(MonthArchiveView):
     model = Exercise
     date_field = 'exercise_at'
-    allow_future = True
+    allow_empty = True
     template_name = 'healthandexercise/board.html'
