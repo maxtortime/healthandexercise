@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
-{% block  content %}
+{% block content %}
+    <p>오늘도 30분 이상의 운동을 하셨나요?
+        <br>
+        🏃 🏋️ 🏊 🧘 🚴 🤸 🚶 🥊 🥋 🤺 🧗 ⛷️ ⛹️ 🏄 🚣 ⚽
+    </p>
     <form method="post" action=".">
         {% csrf_token %}
         <label>
             오늘은 무슨 운동을 하셨나요?
             <input type="text" placeholder="운동 이모지를 넣어주세요!" name="name">
+            {{ form.errors.name }}
+        </label>
+        <br>
+        <label>
+            언제 운동 하셨나요?
+            <input id="exerciseAt" type="date" name="exercise_at">
+            {{ form.errors.exercise_at }}
         </label>
         <input type="submit">
     </form>
+    <script>
+        document.getElementById('exerciseAt').valueAsDate = new Date();
+    </script>
 {% endblock %}

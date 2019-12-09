@@ -1,4 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-    운동 일지
+    <p>
+        {% if user.is_authenticated %}
+            어서 오세요! {{ user }}님!
+            오늘도 30분 이상의 운동을 하셨나요? <a href="{% url 'create-exercise' %}">기록해주세요!</a>
+        {% else %}
+            운동일지가 처음이신가요? <a href="{% url 'login' %}">로그인</a> 혹은
+            <a href="{% url 'register' %}">회원가입</a> 해주세요.
+        {% endif %}
+    </p>
+    <p>
+        오늘은 {% now "Y년 M d일 D" %}입니다.
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">로그아웃하기</a>
+        {% endif %}
+    </p>
+    <ul>
+        {% for exercise in object_list %}
+            <li>{{ exercise.exerciser }} ({{ exercise.exercise_at }}) {{ exercise.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <p>
+        {% if previous_month %}
+            ◀
+            <a href="{% url 'board' year=previous_month|date:"Y" month=previous_month|date:"m" %}">
+                {{ previous_month|date:"Y년 F" }}
+            </a>
+        {% endif %}
+            |
+        {% if next_month %}
+            <a href="{% url 'board' year=next_month|date:"Y" month=next_month|date:"m" %}">
+                {{ next_month|date:"Y년 F" }}
+            </a>
+            ▶
+        {% endif %}
+    </p>
+
 {% endblock %}

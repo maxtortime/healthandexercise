@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -20,7 +19,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='⭕', max_length=128)),
                 ('exercise_at', models.DateField(auto_now_add=True)),
-                ('exerciser', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('exerciser', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                                to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

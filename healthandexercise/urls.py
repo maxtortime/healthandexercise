@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path
@@ -22,9 +23,9 @@ from healthandexercise import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='index'),
-    path('accounts/login/', views.IndexView.as_view(), name='login'),
-    path('accounts/logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('accounts/profile/', views.ProfileView.as_view(), name='user-profile'),
+    path('login/', views.IndexView.as_view(), name='login'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('<int:year>/<int:month>/', views.BoardView.as_view(month_format='%m'), name='board'),
+    path('logout/', LogoutView.as_view(next_page=settings.LOGIN_REDIRECT_URL), name='logout'),
     path('create-exercise/', views.CreateExerciseView.as_view(), name='create-exercise'),
-    path('board/', views.BoardView.as_view(), name='board'),
 ]
